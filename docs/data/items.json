@@ -1,0 +1,64 @@
+{
+  "updated_at": "",
+  "items": [
+    {
+      "id": "seed-yaohai-2026",
+      "title": "2026年度合肥市瑶海区新任教师公开招聘公告",
+      "region": "合肥-瑶海区",
+      "source": "合肥市瑶海区教育体育局·通知公告",
+      "source_id": "hefei-yaohai",
+      "url": "https://www.hfyaohai.gov.cn/yhqjytyj/tzgg/11494243.html",
+      "date": "2026-05-25",
+      "year": "2026",
+      "stage": "招聘公告",
+      "kind": "历史考情",
+      "official": true,
+      "summary": "官方公告明确2026年度瑶海区新任教师公开招聘计划共75名。",
+      "attachments": [],
+      "extracted": {
+        "total_recruit": 75
+      },
+      "machine_match": "需要核实岗位表",
+      "chain_key": "合肥-瑶海区|2026|新任教师公开招聘"
+    },
+    {
+      "id": "seed-yaohai-2025",
+      "title": "2025年度合肥市瑶海区新任教师公开招聘公告",
+      "region": "合肥-瑶海区",
+      "source": "合肥市瑶海区教育体育局·通知公告",
+      "source_id": "hefei-yaohai",
+      "url": "https://www.hfyaohai.gov.cn/yhqjytyj/tzgg/11435525.html",
+      "date": "2025-03-11",
+      "year": "2025",
+      "stage": "招聘公告",
+      "kind": "历史考情",
+      "official": true,
+      "summary": "官方公告明确2025年度瑶海区新任教师公开招聘计划岗位共104名。",
+      "attachments": [],
+      "extracted": {
+        "total_recruit": 104
+      },
+      "machine_match": "需要核实岗位表",
+      "chain_key": "合肥-瑶海区|2025|新任教师公开招聘"
+    },
+    {
+      "id": "seed-changzhou-2026",
+      "title": "2026年常州市教育系统公开招聘教师公告",
+      "region": "常州",
+      "source": "常州市教育局·教师招考",
+      "source_id": "changzhou-teacher",
+      "url": "https://jyj.changzhou.gov.cn/html/jyj/2026/QFJEPCBL_0305/114368.html",
+      "date": "2026-03-05",
+      "year": "2026",
+      "stage": "招聘公告",
+      "kind": "历史考情",
+      "official": true,
+      "summary": "官方教师招考公告，覆盖市直属及多个区县。",
+      "attachments": [],
+      "extracted": {},
+      "machine_match": "需要核实岗位表",
+      "chain_key": "常州|2026|教育系统公开招聘教师"
+    }
+  ],
+  "errors": []
+}

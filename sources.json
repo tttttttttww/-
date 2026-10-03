@@ -1,0 +1,582 @@
+{
+  "version": 8,
+  "discover_keywords": [
+    "教师",
+    "招聘",
+    "选聘",
+    "引进",
+    "校园招聘",
+    "公开招聘",
+    "新任教师",
+    "事业单位",
+    "优秀毕业生",
+    "应届毕业生",
+    "2027届",
+    "高层次人才",
+    "紧缺人才",
+    "语文",
+    "硕士",
+    "研究生",
+    "资格复审",
+    "笔试",
+    "面试",
+    "体检",
+    "拟聘",
+    "递补",
+    "岗位表",
+    "招录",
+    "考察",
+    "专业测试"
+  ],
+  "nav_keywords": [
+    "通知公告",
+    "公示公告",
+    "招考",
+    "教师招考",
+    "人事信息",
+    "招聘",
+    "招录",
+    "公开招聘",
+    "事业单位",
+    "信息公开",
+    "就业",
+    "人才",
+    "教育体育",
+    "社会发展"
+  ],
+  "attachment_exts": [
+    ".pdf",
+    ".xls",
+    ".xlsx",
+    ".csv",
+    ".docx",
+    ".doc",
+    ".wps",
+    ".zip",
+    ".rar"
+  ],
+  "sources": [
+    {
+      "id": "hefei-jyj",
+      "name": "合肥市教育局",
+      "region": "合肥",
+      "category": "教育局",
+      "priority": "高",
+      "entry_urls": [
+        "https://jyj.hefei.gov.cn/"
+      ],
+      "max_pages": 10
+    },
+    {
+      "id": "hefei-rsj",
+      "name": "合肥市人力资源和社会保障局",
+      "region": "合肥",
+      "category": "人社局",
+      "priority": "高",
+      "entry_urls": [
+        "https://rsj.hefei.gov.cn/"
+      ],
+      "max_pages": 10
+    },
+    {
+      "id": "hefei-shushan",
+      "name": "合肥市蜀山区教育体育局",
+      "region": "合肥-蜀山区",
+      "category": "区县教育/政府",
+      "priority": "高",
+      "entry_urls": [
+        "http://www.hfss.gov.cn/zqdh/jytyj/index.html"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-yaohai",
+      "name": "合肥市瑶海区教育体育局·通知公告",
+      "region": "合肥-瑶海区",
+      "category": "区县教育/政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.hfyaohai.gov.cn/yhqjytyj/tzgg/index.html",
+        "https://www.hfyaohai.gov.cn/yhqjytyj/index.html"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-baohe",
+      "name": "合肥市包河区教育体育局",
+      "region": "合肥-包河区",
+      "category": "区县教育/政府",
+      "priority": "高",
+      "entry_urls": [
+        "http://www.baohe.gov.cn/jytyjzt/index.html"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-luyang",
+      "name": "合肥市庐阳区人民政府/教育体育",
+      "region": "合肥-庐阳区",
+      "category": "区县教育/政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.ahhfly.gov.cn/",
+        "https://www.hfly.net/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-feidong",
+      "name": "肥东县教育体育局",
+      "region": "合肥-肥东县",
+      "category": "区县教育/政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.feidong.gov.cn/xqbm/jytyj/index.html"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-feixi",
+      "name": "肥西县人民政府",
+      "region": "合肥-肥西县",
+      "category": "区县政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.ahfeixi.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-changfeng",
+      "name": "长丰县人民政府",
+      "region": "合肥-长丰县",
+      "category": "区县政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.changfeng.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-lujiang",
+      "name": "庐江县人民政府",
+      "region": "合肥-庐江县",
+      "category": "区县政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.lj.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-chaohu",
+      "name": "巢湖市人民政府",
+      "region": "合肥-巢湖市",
+      "category": "区县政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.chaohu.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-gaoxin",
+      "name": "合肥高新区社会发展局",
+      "region": "合肥-高新区",
+      "category": "开发区教育/社会发展",
+      "priority": "高",
+      "entry_urls": [
+        "https://gxq.hefei.gov.cn/ncgzj/index.html"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-xinzhan",
+      "name": "合肥新站高新区",
+      "region": "合肥-新站高新区",
+      "category": "开发区政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://hfxz.hefei.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "hefei-jingkai",
+      "name": "合肥经济技术开发区",
+      "region": "合肥-经开区",
+      "category": "开发区政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://hetda.hefei.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "maanshan-gov",
+      "name": "马鞍山市人民政府",
+      "region": "马鞍山",
+      "category": "政府",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.mas.gov.cn/"
+      ],
+      "max_pages": 12
+    },
+    {
+      "id": "maanshan-rsj",
+      "name": "马鞍山市人力资源和社会保障局",
+      "region": "马鞍山",
+      "category": "人社局",
+      "priority": "高",
+      "entry_urls": [
+        "https://rsj.mas.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "taizhou-jyj",
+      "name": "泰州市教育局",
+      "region": "泰州",
+      "category": "教育局",
+      "priority": "高",
+      "entry_urls": [
+        "https://jyj.taizhou.gov.cn/"
+      ],
+      "max_pages": 16
+    },
+    {
+      "id": "xuzhou-jyj",
+      "name": "徐州市教育局",
+      "region": "徐州",
+      "category": "教育局",
+      "priority": "高",
+      "entry_urls": [
+        "https://jyj.xz.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "xuzhou-rsj",
+      "name": "徐州市人力资源和社会保障局",
+      "region": "徐州",
+      "category": "人社局",
+      "priority": "高",
+      "entry_urls": [
+        "https://hrss.xz.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "changzhou-teacher",
+      "name": "常州市教育局·教师招考",
+      "region": "常州",
+      "category": "教师招考专栏",
+      "priority": "高",
+      "entry_urls": [
+        "https://jyj.changzhou.gov.cn/content/suitable/list?cate_id=36020",
+        "https://jyj.changzhou.gov.cn/class/QFJEPCBL"
+      ],
+      "max_pages": 18
+    },
+    {
+      "id": "yancheng-jyj",
+      "name": "盐城市教育局",
+      "region": "盐城",
+      "category": "教育局",
+      "priority": "高",
+      "entry_urls": [
+        "https://ycedu.yancheng.gov.cn/"
+      ],
+      "max_pages": 14
+    },
+    {
+      "id": "dafeng-recruit",
+      "name": "盐城市大丰区·招录信息",
+      "region": "盐城大丰",
+      "category": "区县招录专栏",
+      "priority": "高",
+      "entry_urls": [
+        "https://www.dafeng.gov.cn/col/col24626/index.html"
+      ],
+      "max_pages": 16
+    },
+    {
+      "id": "anhui-wuhu",
+      "name": "芜湖市教育局·通知公告",
+      "region": "安徽-芜湖",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://jyj.wuhu.gov.cn/xwzx/tzgg/"
+      ],
+      "max_pages": 16,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-huaibei",
+      "name": "淮北市教育局",
+      "region": "安徽-淮北",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://hbjy.huaibei.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-huainan",
+      "name": "淮南市教育体育局",
+      "region": "安徽-淮南",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://sjtj.huainan.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-tongling",
+      "name": "铜陵市教育和体育局",
+      "region": "安徽-铜陵",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://jtj.tl.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-xuancheng",
+      "name": "宣城市教育体育局·教师资格和招聘考试",
+      "region": "安徽-宣城",
+      "category": "教育局专栏",
+      "priority": "中高",
+      "entry_urls": [
+        "https://edu.xuancheng.gov.cn/News/showList/3791/page_1.html",
+        "https://edu.xuancheng.gov.cn/"
+      ],
+      "max_pages": 16,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-chizhou",
+      "name": "池州市教育和体育局",
+      "region": "安徽-池州",
+      "category": "教育局",
+      "priority": "中",
+      "entry_urls": [
+        "https://czsjtj.chizhou.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-luan",
+      "name": "六安市教育体育局",
+      "region": "安徽-六安",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://jyj.luan.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-suzhou",
+      "name": "宿州市教育体育局",
+      "region": "安徽-宿州",
+      "category": "教育局",
+      "priority": "中",
+      "entry_urls": [
+        "https://jiaotiju.ahsz.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-huangshan",
+      "name": "黄山市教育局",
+      "region": "安徽-黄山",
+      "category": "教育局",
+      "priority": "中",
+      "entry_urls": [
+        "https://jyj.huangshan.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-bozhou",
+      "name": "亳州市教育局",
+      "region": "安徽-亳州",
+      "category": "教育局",
+      "priority": "中",
+      "entry_urls": [
+        "https://jyj.bozhou.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-chuzhou",
+      "name": "滁州市教育体育局",
+      "region": "安徽-滁州",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://jytyj.chuzhou.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-fuyang",
+      "name": "阜阳市教育局",
+      "region": "安徽-阜阳",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://edu.fy.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-bengbu",
+      "name": "蚌埠市教育局",
+      "region": "安徽-蚌埠",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://jyj.bengbu.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-anqing",
+      "name": "安庆市教育体育局",
+      "region": "安徽-安庆",
+      "category": "教育局",
+      "priority": "中高",
+      "entry_urls": [
+        "https://jtj.anqing.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "jiangsu-nanjing",
+      "name": "南京市教育局·教师招聘",
+      "region": "江苏-南京",
+      "category": "教师招聘专栏",
+      "priority": "中高",
+      "entry_urls": [
+        "https://edu.nanjing.gov.cn/bsfw/zpzk/"
+      ],
+      "max_pages": 18,
+      "quick_pages": 4
+    },
+    {
+      "id": "jiangsu-huaian",
+      "name": "淮安市教育局",
+      "region": "江苏-淮安",
+      "category": "教育局",
+      "priority": "中",
+      "entry_urls": [
+        "https://jyj.huaian.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-province-edu",
+      "name": "安徽省教育厅",
+      "region": "安徽省级",
+      "category": "省级教育厅",
+      "priority": "中高",
+      "entry_urls": [
+        "https://jyt.ah.gov.cn/"
+      ],
+      "max_pages": 16,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-province-hrss",
+      "name": "安徽省人力资源和社会保障厅",
+      "region": "安徽省级",
+      "category": "省级人社厅",
+      "priority": "中高",
+      "entry_urls": [
+        "https://hrss.ah.gov.cn/"
+      ],
+      "max_pages": 16,
+      "quick_pages": 4
+    },
+    {
+      "id": "anhui-apta",
+      "name": "安徽省人事考试网",
+      "region": "安徽省级",
+      "category": "省级人事考试",
+      "priority": "中高",
+      "entry_urls": [
+        "https://www.apta.gov.cn/"
+      ],
+      "max_pages": 16,
+      "quick_pages": 4
+    },
+    {
+      "id": "jiangsu-province-edu",
+      "name": "江苏省教育厅",
+      "region": "江苏省级",
+      "category": "省级教育厅",
+      "priority": "中",
+      "entry_urls": [
+        "https://jyt.jiangsu.gov.cn/"
+      ],
+      "max_pages": 14,
+      "quick_pages": 4
+    },
+    {
+      "id": "taizhou-rsj",
+      "name": "泰州市人力资源和社会保障局",
+      "region": "泰州",
+      "category": "人社局",
+      "priority": "高",
+      "entry_urls": [
+        "https://rsj.taizhou.gov.cn/"
+      ],
+      "max_pages": 16,
+      "quick_pages": 4
+    },
+    {
+      "id": "changzhou-rsj",
+      "name": "常州市人力资源和社会保障局",
+      "region": "常州",
+      "category": "人社局",
+      "priority": "高",
+      "entry_urls": [
+        "https://rsj.changzhou.gov.cn/"
+      ],
+      "max_pages": 16,
+      "quick_pages": 4
+    },
+    {
+      "id": "yancheng-rsj",
+      "name": "盐城市人力资源和社会保障局",
+      "region": "盐城",
+      "category": "人社局",
+      "priority": "高",
+      "entry_urls": [
+        "https://jsychrss.yancheng.gov.cn/"
+      ],
+      "max_pages": 16,
+      "quick_pages": 4
+    }
+  ]
+}

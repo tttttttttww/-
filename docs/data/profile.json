@@ -1,0 +1,25 @@
+{
+  "graduation_year": 2027,
+  "graduate_status": "2027届应届硕士毕业生",
+  "expected_graduation": "2027-06",
+  "bachelor_major": "小学教育",
+  "master_major": "现代教育技术",
+  "teacher_certificate": "高中语文教师资格证",
+  "target": "初中语文",
+  "positive_patterns": [
+    "不限专业",
+    "专业不限",
+    "研究生不限专业",
+    "硕士不限专业",
+    "本科或研究生任一阶段",
+    "本科或硕士任一阶段",
+    "教育学类",
+    "教育类"
+  ],
+  "caution_patterns": [
+    "汉语言文学",
+    "中国语言文学",
+    "学科教学（语文）",
+    "课程与教学论（语文）"
+  ]
+}

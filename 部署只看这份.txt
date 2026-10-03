@@ -1,0 +1,23 @@
+教师考编信息雷达 V8｜部署只看这份
+
+1. 解压 ZIP。
+2. GitHub 新建仓库（旧版仓库也可以直接覆盖）。
+3. 把解压后的全部内容上传到仓库根目录，尤其不要漏掉 .github 文件夹。
+4. Settings → Pages → Deploy from a branch → 默认分支（通常 main）→ /docs → Save。
+5. Actions：先运行“Update teacher exam radar”。
+6. 再运行“Deep backfill teacher exam radar”。
+7. 打开 Pages 网址，第一件事看“官网覆盖状态”，不要只看公告条数。
+
+如果 Action 报没有写权限：
+Settings → Actions → General → Workflow permissions → Read and write permissions → Save。
+
+状态解释：
+- 正常：页面可访问且识别到招聘候选。
+- 可访问但未发现候选：可能是动态页面、入口不精准或确实暂无相关标题。
+- 部分失败 / 抓取失败：本轮不能把“没抓到”理解成“没有公告”。
+- 待回溯 / 待翻页：近3—5年历史库还在分批补齐。
+
+完整说明请看 README.md。
+
+
+V8 新增：页面里可直接点“查看官方公告 / 报名入口 / 岗位表”，并可用“合肥全域 / 安徽全省 / 江苏巡考”快捷筛选。详情页可保存个人备注。
