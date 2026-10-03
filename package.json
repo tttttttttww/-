@@ -1,0 +1,8 @@
+{
+  "name": "teacher-exam-radar-cloud-native",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@edgeone/pages-blob": "latest"
+  }
+}

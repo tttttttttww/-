@@ -1,0 +1,244 @@
+{
+  "outputDirectory": "docs",
+  "cloudFunctions": {
+    "nodejs": {
+      "maxDuration": 120
+    },
+    "python": {
+      "maxDuration": 120
+    },
+    "mainlandRegions": [
+      "ap-shanghai"
+    ]
+  },
+  "schedules": [
+    {
+      "name": "quick-batch-00",
+      "cron": "10 5 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 0,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-01",
+      "cron": "10 6 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 1,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-02",
+      "cron": "10 7 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 2,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-03",
+      "cron": "10 8 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 3,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-04",
+      "cron": "10 9 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 4,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-05",
+      "cron": "10 10 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 5,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-06",
+      "cron": "10 11 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 6,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-07",
+      "cron": "10 12 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 7,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-08",
+      "cron": "10 13 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 8,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-09",
+      "cron": "10 14 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 9,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-10",
+      "cron": "10 15 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 10,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-11",
+      "cron": "10 16 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 11,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-12",
+      "cron": "10 17 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 12,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-13",
+      "cron": "10 18 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 13,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-14",
+      "cron": "10 19 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 14,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-15",
+      "cron": "10 20 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 15,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-16",
+      "cron": "10 21 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 16,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "quick-batch-17",
+      "cron": "10 22 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "quick",
+        "batch": 17,
+        "batch_size": 5
+      }
+    },
+    {
+      "name": "deep-backfill-next",
+      "cron": "30 2 * * *",
+      "timezone": "Asia/Shanghai",
+      "path": "/api/radar-crawl",
+      "method": "POST",
+      "payload": {
+        "mode": "deep",
+        "batch": "next",
+        "batch_size": 3
+      }
+    }
+  ]
+}
