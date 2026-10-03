@@ -1,17 +1,7 @@
-教师考编信息雷达｜腾讯云原生自动巡检版
+只做一次：
+1. 解压本 ZIP，把全部文件覆盖上传到 GitHub 仓库 main 根目录。
+2. EdgeOne 保持 根目录 ./、输出目录 docs。
+3. GitHub 仓库 Settings → Actions → General：允许 Actions；Workflow permissions 选 Read and write permissions。
+4. 之后不用点 Run workflow。上传这版后会自动首跑，后续约每3小时自动检查，每天自动补历史。
 
-部署：
-1. 解压本 ZIP，把全部文件上传到现有 GitHub 仓库 main 分支根目录。
-2. EdgeOne Makers 会监听 main 分支并自动重新部署。
-3. 本版不依赖 GitHub Actions；GitHub 只作为代码仓库。
-4. 等 EdgeOne 显示部署成功后，用控制台生成的最新预览链接打开网站。
-5. 第一次先点“接口自检”：
-   - 显示“接口正常”后，再点“立即巡检合肥”。
-   - 若自检失败，不要重复上传；根据弹窗 HTTP 状态查看 EdgeOne Cloud Functions 日志。
-6. eo_token / eo_time 会原样传递给 API；网页不会自行把 eo_time 判断为“到期时间”。
-
-自动巡检：
-- 87 个固定官方入口。
-- 18 个快速批次：北京时间 05:10—22:10 每小时一批。
-- 1 个历史深度回溯任务：北京时间 02:30。
-- 普通筛选按钮只筛选已收录数据；“立即巡检合肥”才会马上触发合肥重点巡检。
+网页不使用 EdgeOne Cloud Functions，所以不会再有 API 404。

@@ -5,9 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 required=[
  'sources.json','requirements.txt','docs/index.html','docs/data/profile.json','docs/data/items.json',
  'docs/data/source_status.json','docs/data/chains.json','scripts/update.py','scripts/test_logic.py',
- 'edgeone.json','package.json','cloud-functions/requirements.txt',
- 'cloud-functions/api/radar-crawl.py','cloud-functions/api/radar-data.js','cloud-functions/api/radar-store.js',
- 'cloud-functions/api/radar-health.py','cloud-functions/api/_radar_engine.py','cloud-functions/api/_radar_config.py'
+ '.github/workflows/radar.yml','edgeone.json'
 ]
 errors=[]; warnings=[]
 for rel in required:
@@ -77,26 +75,17 @@ try:
         Path(name).unlink(missing_ok=True)
         if r.returncode!=0: errors.append('index.html JavaScript 语法错误: '+(r.stderr or r.stdout)[:500])
 except Exception as e: errors.append('前端检查失败: '+str(e))
-# Tencent Cloud native guardrails
+# Workflow guardrails
 try:
+    wf=(ROOT/'.github/workflows/radar.yml').read_text(encoding='utf-8')
+    if 'contents: write' not in wf: errors.append('workflow 缺少 contents: write')
+    if 'cancel-in-progress: false' not in wf: errors.append('workflow 应避免相互取消')
+    if '--mode "$RADAR_MODE"' not in wf: errors.append('workflow 未正确选择 quick/deep 模式')
+    if 'scripts/self_check.py' not in wf or 'scripts/test_logic.py' not in wf: errors.append('workflow 未运行自检/回归测试')
+    if '17 */3 * * *' not in wf or '37 18 * * *' not in wf: errors.append('workflow 定时配置异常')
     eo=json.loads((ROOT/'edgeone.json').read_text(encoding='utf-8'))
-    if eo.get('outputDirectory')!='docs': errors.append('edgeone.json outputDirectory 应为 docs')
-    cf=eo.get('cloudFunctions',{})
-    if (cf.get('python') or {}).get('maxDuration')!=120: errors.append('Python Cloud Function maxDuration 应为120秒')
-    if (cf.get('nodejs') or {}).get('maxDuration')!=120: errors.append('Node Cloud Function maxDuration 应为120秒')
-    sched=eo.get('schedules') or []
-    quick=[x for x in sched if str(x.get('name','')).startswith('quick-batch-')]
-    if len(quick)!=18: errors.append(f'快速巡检批次数异常: {len(quick)}')
-    if not any(x.get('name')=='deep-backfill-next' for x in sched): errors.append('缺少深度回溯 schedule')
-    pkg=json.loads((ROOT/'package.json').read_text(encoding='utf-8'))
-    if pkg.get('dependencies',{}).get('@edgeone/pages-blob')!='0.0.18': warnings.append('Blob SDK 未固定为已复核版本 0.0.18')
-    html=(ROOT/'docs/index.html').read_text(encoding='utf-8')
-    for token in ['scanNowBtn','apiHealthBtn','function apiUrl(path)','eo_token','eo_time']:
-        if token not in html: errors.append('腾讯云前端缺少: '+token)
-    py=(ROOT/'cloud-functions/api/radar-crawl.py').read_text(encoding='utf-8')
-    for token in ['_preview_auth','_api_url','_radar_engine','_radar_config']:
-        if token not in py: errors.append('腾讯云爬虫缺少: '+token)
-except Exception as e: errors.append('腾讯云原生配置检查失败: '+str(e))
+    if eo.get('outputDirectory')!='docs': errors.append('edgeone.json 输出目录必须为 docs')
+except Exception as e: errors.append('Workflow/EdgeOne 检查失败: '+str(e))
 if errors:
     print('\n'.join('ERROR: '+x for x in errors)); sys.exit(1)
 for x in warnings: print('WARN:',x)

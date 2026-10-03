@@ -1,10 +1,22 @@
-# 教师考编信息雷达｜腾讯云原生自动巡检版
+# 教师考编信息雷达｜高可靠自动搜集版
 
-- EdgeOne Makers 静态页面 + Python/Node Cloud Functions + Makers Blob。
-- 不依赖 GitHub Actions。GitHub 只作为代码仓库，EdgeOne 监听 main 分支自动部署。
-- 87 个官方入口，合肥及周边优先；附件支持 PDF / Excel / Word 解析。
-- 18 个每日错峰快速巡检任务 + 1 个每日历史深度回溯任务。
-- 中国大陆 EdgeOne 预览链接的 `eo_token` / `eo_time` 会自动传递到 API。
-- 页面提供“接口自检”和“立即巡检合肥”。
+这版只保留一条自动化链路：
 
-部署和使用请看《部署说明.txt》《使用说明.txt》。
+**GitHub 定时采集 → 写入 JSON → 网页直接读取 GitHub 最新数据（失败则回退 EdgeOne 本地备份）**
+
+不使用 EdgeOne Cloud Functions，不会再出现 `/api/... 404`、预览 token、Blob 等问题。
+
+## 自动频率
+- 快速巡检：约每 3 小时一次，检查 87 个官方入口。
+- 历史深度回溯：每天一次。
+- 第一次上传本版本到 `main` 后会自动触发首轮采集，不要求你去点 Actions 的 Run workflow。
+
+## 只需确认一次的 GitHub 设置
+仓库 `Settings → Actions → General`：
+- Actions permissions：允许 Actions 运行。
+- Workflow permissions：建议 Read and write permissions。
+
+之后正常情况下不用再操作。
+
+## 网站
+EdgeOne 保持：根目录 `./`，输出目录 `docs`。网页会优先从 GitHub 仓库读取最新 JSON，所以即使 EdgeOne 对数据 commit 的重新部署稍有延迟，也能看到新数据。
