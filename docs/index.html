@@ -161,25 +161,21 @@ function apiUrl(path){
   }catch(_){return path}
 }
 
-function previewLinkExpired(){
-  try{
-    const q=new URLSearchParams(location.search);
-    const t=Number(q.get('eo_time')||0);
-    return t>0 && Date.now()/1000>t;
-  }catch(_){return false}
-}
 
 async function apiJson(path,options={}){
-  if(previewLinkExpired()) throw new Error('当前 EdgeOne 预览链接已过期，请从 EdgeOne 控制台打开最新预览链接后再试');
   const r=await fetch(apiUrl(path),options);
   const ct=(r.headers.get('content-type')||'').toLowerCase();
   const raw=await r.text();
   if(!ct.includes('application/json')){
-    const hint=(raw||'').replace(/\\s+/g,' ').slice(0,180);
-    throw new Error(`接口没有返回JSON（HTTP ${r.status}）${hint?`：${hint}`:''}`);
+    const hint=(raw||'').replace(/\s+/g,' ').slice(0,180);
+    let extra='';
+    if(r.status===401||r.status===403) extra='（可能是预览链接鉴权失效或接口权限未通过）';
+    else if(r.status===404) extra='（接口路由可能未部署成功）';
+    else if(r.status>=500) extra='（云函数运行失败，请查看 Functions 日志）';
+    throw new Error(`接口没有返回JSON：HTTP ${r.status}${extra}${hint?`；返回：${hint}`:''}`);
   }
   let j;
-  try{j=JSON.parse(raw)}catch(_){throw new Error(`接口JSON解析失败（HTTP ${r.status}）`)}
+  try{j=JSON.parse(raw)}catch(_){throw new Error(`接口JSON解析失败：HTTP ${r.status}`)}
   if(!r.ok)throw new Error(j?.error||`HTTP ${r.status}`);
   return j;
 }
@@ -239,7 +235,7 @@ async function runPriorityScan(){
     setTimeout(()=>{btn.textContent=old;btn.disabled=false},1600);
   }catch(err){
     btn.textContent='巡检失败';btn.disabled=false;
-    alert('腾讯云巡检没有完成：'+err.message+'\\n\\n本版已自动传递 EdgeOne 预览链接的 eo_token / eo_time。若仍失败，请直接查看页面右上角“接口自检”结果或 EdgeOne Functions 日志。页面已有数据不会丢失。');
+    alert('腾讯云巡检没有完成：'+err.message+'\n\n当前页面会自动把 eo_token / eo_time 带给 API。请先点“接口自检”；若接口自检失败，再查看 EdgeOne Functions 日志。页面已有数据不会丢失。');
     setTimeout(()=>btn.textContent=old,1600);
   }
 }
