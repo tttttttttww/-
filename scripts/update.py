@@ -408,6 +408,12 @@ def match_profile(full_text, target_rows):
     bach = PROFILE.get('bachelor_major', '小学教育')
     mast = PROFILE.get('master_major', '现代教育技术')
     if focus:
+        full_compact = re.sub(r'\s+', '', full_text or '')
+        cert_or_major = any(x in full_compact for x in [
+            '所学专业或所持教师资格证的任教学科应与应聘学科相符',
+            '所学专业或教师资格证任教学科应与应聘学科相符',
+            '所学专业或所持教师资格证任教学科与应聘学科相符'
+        ])
         has_wide_grad = ('不限专业' in compact or '专业不限' in compact) and ('研究生' in compact or '硕士' in compact)
         has_bachelor_restrict = any(x in compact for x in [
             '本科所学专业须为与招聘岗位相对应', '本科阶段所学专业须为与招聘岗位相对应',
@@ -421,6 +427,8 @@ def match_profile(full_text, target_rows):
         # Prefer caution when broad and restrictive clauses coexist.
         if has_bachelor_restrict and has_wide_grad:
             return '需重点核实：同一语文岗位同时出现研究生专业不限与本科阶段专业对应要求'
+        if cert_or_major and '语文' in compact:
+            return '较匹配：公告允许所学专业或教师资格证任教学科与应聘学科相符；已有高中语文教资，学段及其他条件仍需核实'
         if has_bachelor_restrict:
             return '专业可能受限：语文岗位要求本科阶段专业与招聘岗位对应'
         if has_chinese_restrict and not has_wide_grad:
@@ -449,6 +457,31 @@ def extract_exam_clues(text):
             if len(c) <= 500:
                 out.append(c)
     return list(dict.fromkeys(out))[:8]
+
+
+def prep_fit(exam_clues, full_text=''):
+    """Describe overlap with the user's current 教综-oriented preparation without scoring jobs."""
+    text = '\n'.join(exam_clues or []) + '\n' + (full_text or '')[:30000]
+    compact = re.sub(r'\s+', '', text)
+    has_jz = any(x in compact for x in ['教育综合知识', '教育理论', '教育教学理论', '教综'])
+    has_subject = any(x in compact for x in ['学科专业知识', '学科知识', '学科测试', '专业知识', '专业测试'])
+    has_public = any(x in compact for x in ['综合应用能力', '职业能力倾向测验', '公共基础知识', '公共知识'])
+    has_interview = any(x in compact for x in ['试讲', '说课', '答辩', '结构化面试', '模拟上课', '试教'])
+    if has_jz and has_subject:
+        return '教综重合较高；另需准备语文学科知识'
+    if has_jz:
+        return '教综重合较高；仍需核对是否另考学科/面试'
+    if has_public and has_subject:
+        return '部分重合：公共/综合能力 + 语文学科知识需另备'
+    if has_subject and has_interview:
+        return '部分重合：重点补语文学科测试与试讲/面试'
+    if has_subject:
+        return '部分重合：需重点补语文学科知识/专业测试'
+    if has_interview:
+        return '笔试重合有限：以试讲/面试准备为主'
+    if has_public:
+        return '考试体系不同：需补公共/职测/综合应用能力'
+    return '考试内容待核'
 
 
 def is_attachment_link(url, name=''):
@@ -612,20 +645,38 @@ def article(url, title=''):
     merged = body_raw + ('\n' + '\n'.join(table_rows) if table_rows else '')
     registration_links = extract_registration_links(url, soup, body_raw)
     attachments = []
+    attachment_candidates = []
     for a in soup.find_all('a'):
         href = element_link(url, a)
         if not href or not href.startswith(('http://', 'https://')):
             continue
         name = clean(a.get_text(' ', strip=True)) or href.split('/')[-1]
         if is_attachment_link(href, name):
-            txt, err = '', ''
-            try:
-                txt = parse_attachment(href, name)
-            except Exception as e:
-                err = str(e)
-            attachments.append({'name': name, 'url': href, 'parsed': bool(txt), 'preview': clean(txt[:700]), 'error': err})
-            if txt:
-                merged += '\n' + txt[:180000]
+            attachment_candidates.append((href, name))
+    # Some government sites (notably Shanghai district portals) put the actual notice/PDF
+    # in iframe/embed/object instead of a normal <a>. Parse those too.
+    for el in soup.find_all(['iframe', 'embed', 'object']):
+        raw = el.get('src') or el.get('data') or ''
+        if not raw:
+            continue
+        href = canonical_url(urljoin(url, raw))
+        name = clean(el.get('title') or el.get('aria-label') or '') or href.split('/')[-1].split('?')[0] or '嵌入附件'
+        typ = (el.get('type') or '').lower()
+        if is_attachment_link(href, name) or 'pdf' in typ or 'spreadsheet' in typ or 'word' in typ:
+            attachment_candidates.append((href, name))
+    seen_att = set()
+    for href, name in attachment_candidates:
+        if not href or href in seen_att:
+            continue
+        seen_att.add(href)
+        txt, err = '', ''
+        try:
+            txt = parse_attachment(href, name)
+        except Exception as e:
+            err = str(e)
+        attachments.append({'name': name, 'url': href, 'parsed': bool(txt), 'preview': clean(txt[:700]), 'error': err})
+        if txt:
+            merged += '\n' + txt[:180000]
     pub = guess_date(title, url, body_raw, soup)
     return body, merged, attachments, pub, registration_links
 
@@ -731,6 +782,7 @@ def build_item(src, title, href, old_item=None):
             'is_2027': (cycle_year == '2027' or '2027届' in merged or '2027届' in title),
             'chain_key': chain_key(src['region'], cycle_year, title), 'last_checked_at': now_iso()
         }
+        item['prep_fit'] = prep_fit(item.get('exam_clues', []), merged)
         item['kind'] = classify(stage, pub, cycle_year, schedule)
         item['discovered_at'] = (old_item or {}).get('discovered_at') or now_iso()
         item['content_hash'] = hashlib.sha1((title + '\n' + body + '\n' + json.dumps(at, ensure_ascii=False, sort_keys=True)).encode('utf-8', 'ignore')).hexdigest()
@@ -750,7 +802,7 @@ def build_item(src, title, href, old_item=None):
             'stage': detect_stage(title), 'recruitment_type': detect_recruitment_type(title, ''), 'kind': '近期公告' if cycle_year in {str(CURRENT_YEAR), str(CURRENT_YEAR + 1)} else '历史考情',
             'official': True, 'summary': '发现官方链接，但详情抓取失败；请直接打开原公告核验。', 'attachments': [], 'registration_links': [],
             'extracted': {}, 'schedule': {}, 'application_status': '时间待核', 'target_rows': [], 'cert_rows': [],
-            'cert_match': '教资要求待核', 'exam_clues': [], 'machine_match': '需要人工核实',
+            'cert_match': '教资要求待核', 'exam_clues': [], 'prep_fit': '考试内容待核', 'machine_match': '需要人工核实',
             'is_2027': cycle_year == '2027', 'chain_key': chain_key(src['region'], cycle_year, title),
             'discovered_at': now_iso(), 'last_checked_at': now_iso(), 'fetch_error': str(e)[:220]
         }

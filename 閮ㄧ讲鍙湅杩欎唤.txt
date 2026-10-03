@@ -1,0 +1,12 @@
+教师考编信息雷达｜覆盖更新部署
+
+你已经有 EdgeOne 项目时，只做这几步：
+1. 解压本 ZIP。
+2. 把里面“全部文件和文件夹”覆盖上传到原 GitHub 仓库根目录，`.github` 也要一起上传。
+3. GitHub Actions 页面（网址结尾应是 /actions，不是 /actions/new）：
+   - 手动运行 Update teacher exam radar
+   - 它成功后，再运行 Deep backfill teacher exam radar
+4. EdgeOne 会跟随 main 分支自动部署；等待几分钟刷新网页。
+5. 先看“官网覆盖状态”，确认哪些入口是正常/部分失败/抓取失败。
+
+当前固定官方入口：87 个；合肥为最高优先，已补齐芜湖市级+主要县区入口，并补充马鞍山教育局及合肥周边城市人社入口；上海与江苏作为补充巡考。

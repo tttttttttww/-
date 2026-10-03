@@ -2,6 +2,39 @@
   "updated_at": "",
   "items": [
     {
+      "id": "seed-shanghai-baoshan-2027",
+      "title": "2027年上海市宝山区师资招聘公告（第一期）",
+      "region": "上海-宝山区",
+      "source": "上海市宝山区教育局·教师招聘",
+      "source_id": "shanghai-baoshan",
+      "url": "https://xxgk.shbsq.gov.cn/article.html?infoid=55da6ec5-b4cf-484e-b01d-785503871d37",
+      "date": "2026-09-24",
+      "publish_year": "2026",
+      "cycle_year": "2027",
+      "year": "2027",
+      "stage": "招聘公告",
+      "recruitment_type": "校招/应届招聘",
+      "kind": "近期公告",
+      "official": true,
+      "summary": "宝山区教育局已发布2027年第一期师资招聘公告。初中语文具体岗位、专业口径、报名安排和普通话等条件仍需以官方岗位信息及后续通知逐项核验。",
+      "attachments": [],
+      "registration_links": [],
+      "extracted": {},
+      "schedule": {},
+      "application_status": "时间待核",
+      "target_rows": [],
+      "cert_rows": [],
+      "cert_match": "教资需核：已有高中语文教资，仍按具体岗位学段学科要求确认",
+      "exam_clues": [],
+      "prep_fit": "考试内容待核",
+      "machine_match": "值得核实：面向2027届，初中语文具体岗位待岗位表",
+      "is_2027": true,
+      "chain_key": "上海-宝山区|2027|师资招聘第一期",
+      "discovered_at": "2026-10-03T00:00:00+08:00",
+      "last_checked_at": "",
+      "content_hash": ""
+    },
+    {
       "id": "seed-yaohai-2026",
       "title": "2026年度合肥市瑶海区新任教师公开招聘公告",
       "region": "合肥-瑶海区",
@@ -58,6 +91,47 @@
       "extracted": {},
       "machine_match": "需要核实岗位表",
       "chain_key": "常州|2026|教育系统公开招聘教师"
+    },
+    {
+      "id": "seed-wuhu-2026-new-teacher",
+      "title": "2026年度芜湖市中小学新任教师公开招聘公告",
+      "region": "安徽-芜湖",
+      "source": "芜湖市教育局·通知公告",
+      "url": "https://jyj.wuhu.gov.cn/xwzx/tzgg/8916421.html",
+      "date": "2026-03-16",
+      "kind": "历史考情",
+      "stage": "招聘公告",
+      "official": true,
+      "summary": "官方公告：2026年度芜湖市中小学新任教师招聘岗位计划共159名；统一笔试为学科专业知识+教育综合知识。",
+      "cycle_year": "2026",
+      "is_2027": false,
+      "schedule": {
+        "apply_start": "2026-03-19",
+        "apply_end": "2026-03-25",
+        "written_start": "2026-04-04"
+      },
+      "application_status": "已结束",
+      "machine_match": "需要核实岗位表",
+      "cert_match": "教师资格需按岗位核实",
+      "prep_fit": "教综重合较高；同时需准备语文学科专业知识",
+      "target_rows": [],
+      "attachments": [],
+      "registration_links": [
+        {
+          "label": "芜湖市中小学教师招聘考试系统",
+          "url": "https://www.whysee.net"
+        }
+      ],
+      "extracted": {
+        "total_recruit": 159
+      },
+      "evidence": [
+        "官方公告明确：2026年度芜湖市中小学新任教师招聘岗位计划共159名。",
+        "笔试科目为《学科专业知识》和《教育综合知识》，合成笔试成绩按60%和40%计算。"
+      ],
+      "recruitment_type": "统招/公开招聘",
+      "discovered_at": "",
+      "updated_at": ""
     }
   ],
   "errors": []

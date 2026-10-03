@@ -38,6 +38,12 @@ try:
     anhui=['合肥','芜湖','蚌埠','淮南','马鞍山','淮北','铜陵','安庆','黄山','滁州','阜阳','宿州','六安','亳州','池州','宣城']
     for city in anhui:
         if not any(city in r for r in regions): errors.append('安徽地市覆盖缺失: '+city)
+    shanghai_priority={'shanghai-edu','shanghai-rsj-recruit','shanghai-shnu-career','shanghai-baoshan','shanghai-putuo','shanghai-hongkou','shanghai-qingpu'}
+    lost_sh=sorted(shanghai_priority-set(ids))
+    if lost_sh: errors.append('上海重点来源缺失: '+','.join(lost_sh))
+    jiangsu_extra={'jiangsu-suzhou-jyj','jiangsu-wuxi-jyj','jiangsu-nantong-jyj','jiangsu-yangzhou-jyj','jiangsu-zhenjiang-jyj'}
+    lost_js=sorted(jiangsu_extra-set(ids))
+    if lost_js: errors.append('江苏扩展巡考来源缺失: '+','.join(lost_js))
     priority_ids={'hefei-jyj','hefei-rsj','maanshan-gov','taizhou-jyj','xuzhou-jyj','changzhou-teacher','yancheng-jyj','dafeng-recruit'}
     lost=sorted(priority_ids-set(ids))
     if lost: errors.append('重点来源缺失: '+','.join(lost))
@@ -52,7 +58,7 @@ try:
     html=(ROOT/'docs/index.html').read_text(encoding='utf-8')
     for token in ['data/items.json','data/source_status.json','data/chains.json']:
         if token not in html: errors.append('index.html 未引用 '+token)
-    for token in ['官网覆盖','报名截止','我的关注','导出当前列表','导出考试日历','查看官方公告','明确初中语文','有岗位表/附件','历年趋势对比','合肥全域','我的备注']:
+    for token in ['官网覆盖','报名截止','我的关注','导出当前列表','导出考试日历','查看官方公告','明确初中语文','有岗位表/附件','历年趋势对比','上海补充','合肥周边','芜湖','合肥全域','我的备注','备考提示']:
         if token not in html: warnings.append('前端可能缺少功能文字: '+token)
 
     ids=re.findall(r'id=\"([^\"]+)\"',html)

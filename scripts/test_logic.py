@@ -150,3 +150,26 @@ check(tn.get('target_subject_recruit')==2 and tn.get('target_applicants')==36 an
 tabtxt='初中语文 | 硕士研究生 | 研究生不限专业 | 2名\n初中数学 | 硕士研究生 | 数学与应用数学 | 2名'
 tr=u.extract_target_rows(tabtxt)
 check(tr and '数学与应用数学' not in tr[0] and '研究生不限专业' in tr[0],'tabular row isolation')
+
+# 21. Prep-fit hints must distinguish 教综 overlap from subject/public/interview-heavy formats.
+check('教综重合较高' in u.prep_fit(['笔试科目：教育综合知识、学科专业知识']), 'prep fit for 教综 + subject')
+check('公共' in u.prep_fit(['笔试：职业能力倾向测验、综合应用能力']), 'prep fit for public aptitude system')
+check('试讲' in u.prep_fit(['面试采取试讲和答辩']), 'prep fit for interview-heavy format')
+
+# 22. Embedded PDF/office notices in iframe/embed/object must be discovered as attachments.
+_orig_get2=u.get
+_orig_parse=u.parse_attachment
+try:
+    u.get=lambda url,binary=False: '<html><body><iframe src="/files/notice.pdf" title="招聘公告PDF"></iframe></body></html>'
+    u.parse_attachment=lambda url,name='': '2027届教师招聘 初中语文 研究生不限专业 教育综合知识'
+    body,merged,atts,pub,regs=u.article('https://edu.example.gov/article.html','2027届教师招聘公告')
+    check(atts and atts[0]['url']=='https://edu.example.gov/files/notice.pdf' and atts[0]['parsed'], 'iframe attachment extraction')
+    check('研究生不限专业' in merged, 'iframe attachment text merge')
+finally:
+    u.get=_orig_get2
+    u.parse_attachment=_orig_parse
+
+# 23. Shanghai-style clause allowing major OR certificate subject should be recognized cautiously as a positive lead.
+rows5=u.extract_target_rows('岗位：初中语文 | 招聘人数：2')
+full5='原则上应聘小学及以上学段，所学专业或所持教师资格证的任教学科应与应聘学科相符。'
+check('较匹配' in u.match_profile(full5,rows5), 'major-or-certificate Shanghai clause')
