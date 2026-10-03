@@ -1,12 +1,12 @@
 import gzip, io, json, os, shutil, tempfile, time, uuid
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, parse_qs, urlencode
 
 import requests
 
-import radar_engine
-from radar_config import SOURCES_CONFIG, PROFILE_DATA, SEED_ITEMS, SEED_STATUS, SEED_CHAINS
+import _radar_engine as radar_engine
+from _radar_config import SOURCES_CONFIG, PROFILE_DATA, SEED_ITEMS, SEED_STATUS, SEED_CHAINS
 
 BATCH_SIZE = 5
 STORE_TOKEN = os.environ.get('RADAR_INTERNAL_TOKEN', 'teacher-radar-internal-v1')
@@ -17,22 +17,38 @@ def _origin(handler):
     proto = handler.headers.get('X-Forwarded-Proto') or 'https'
     return f'{proto}://{host}'
 
-
-def _get_json(origin, kind, fallback):
+def _preview_auth(handler):
+    """Forward EdgeOne preview-link auth params to same-project subrequests."""
     try:
-        r = requests.get(f'{origin}/api/radar-data?kind={kind}', timeout=15, headers={'User-Agent':'TeacherExamRadar/Internal'})
-        if r.ok:
+        q = parse_qs(urlparse(handler.path).query)
+        return {k:q[k][0] for k in ('eo_token','eo_time') if q.get(k)}
+    except Exception:
+        return {}
+
+
+def _api_url(origin, path, auth=None, extra=None):
+    params={}
+    if auth: params.update(auth)
+    if extra: params.update(extra)
+    qs=urlencode(params)
+    return f"{origin}{path}" + (f"?{qs}" if qs else "")
+
+
+def _get_json(origin, kind, fallback, auth=None):
+    try:
+        r = requests.get(_api_url(origin, '/api/radar-data', auth, {'kind':kind}), timeout=15, headers={'User-Agent':'TeacherExamRadar/Internal'})
+        if r.ok and 'application/json' in (r.headers.get('Content-Type') or ''):
             return r.json()
     except Exception:
         pass
     return fallback
 
 
-def _store_json(origin, kind, obj):
+def _store_json(origin, kind, obj, auth=None):
     raw = json.dumps(obj, ensure_ascii=False, separators=(',',':')).encode('utf-8')
     body = gzip.compress(raw, compresslevel=6)
     r = requests.post(
-        f'{origin}/api/radar-store?kind={kind}', data=body, timeout=25,
+        _api_url(origin, '/api/radar-store', auth, {'kind':kind}), data=body, timeout=25,
         headers={'Content-Type':'application/gzip','Content-Encoding':'gzip','X-Radar-Token':STORE_TOKEN,'User-Agent':'TeacherExamRadar/Internal'}
     )
     r.raise_for_status()
@@ -77,7 +93,8 @@ class handler(BaseHTTPRequestHandler):
         mode = payload.get('mode','quick')
         if mode not in ('quick','deep'): mode='quick'
         origin = _origin(self)
-        runtime = _get_json(origin, 'runtime', {'last_runs':{},'deep_cursor':0})
+        auth = _preview_auth(self)
+        runtime = _get_json(origin, 'runtime', {'last_runs':{},'deep_cursor':0}, auth)
         sources = SOURCES_CONFIG['sources']
         # quick: explicit batch; deep: rotate through small batches automatically
         if mode == 'deep' and payload.get('batch') in (None, 'next'):
@@ -104,9 +121,9 @@ class handler(BaseHTTPRequestHandler):
         tmp = Path(tempfile.mkdtemp(prefix='radar-'))
         try:
             (tmp/'docs/data').mkdir(parents=True, exist_ok=True)
-            items = _get_json(origin,'items',SEED_ITEMS)
-            status = _get_json(origin,'status',SEED_STATUS)
-            chains = _get_json(origin,'chains',SEED_CHAINS)
+            items = _get_json(origin,'items',SEED_ITEMS,auth)
+            status = _get_json(origin,'status',SEED_STATUS,auth)
+            chains = _get_json(origin,'chains',SEED_CHAINS,auth)
             (tmp/'docs/data/items.json').write_text(json.dumps(items,ensure_ascii=False),encoding='utf-8')
             (tmp/'docs/data/source_status.json').write_text(json.dumps(status,ensure_ascii=False),encoding='utf-8')
             (tmp/'docs/data/chains.json').write_text(json.dumps(chains,ensure_ascii=False),encoding='utf-8')
@@ -120,14 +137,14 @@ class handler(BaseHTTPRequestHandler):
             out_items = json.loads((tmp/'docs/data/items.json').read_text(encoding='utf-8'))
             out_status = json.loads((tmp/'docs/data/source_status.json').read_text(encoding='utf-8'))
             out_chains = json.loads((tmp/'docs/data/chains.json').read_text(encoding='utf-8'))
-            _store_json(origin,'items',out_items)
-            _store_json(origin,'status',out_status)
-            _store_json(origin,'chains',out_chains)
+            _store_json(origin,'items',out_items,auth)
+            _store_json(origin,'status',out_status,auth)
+            _store_json(origin,'chains',out_chains,auth)
             from datetime import datetime, timezone
             runtime.setdefault('last_runs',{})[run_key] = datetime.now(timezone.utc).isoformat(timespec='seconds')
             runtime['last_mode']=mode; runtime['last_batch_sources']=ids; runtime['last_duration_seconds']=round(time.time()-started,2)
             if mode=='deep': runtime['deep_cursor']=next_cursor
-            _store_json(origin,'runtime',runtime)
+            _store_json(origin,'runtime',runtime,auth)
             summary.update({'ok':True,'run_key':run_key,'source_ids':ids,'duration_seconds':round(time.time()-started,2)})
             self._reply(200, summary)
         except Exception as e:

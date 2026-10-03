@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@edgeone/pages-blob": "latest"
+    "@edgeone/pages-blob": "0.0.18"
   }
 }
